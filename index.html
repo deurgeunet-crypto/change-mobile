@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#102b25" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Change Mobile" />
+    <meta
+      name="description"
+      content="Prototype de demandes d'échange entre portefeuilles mobile money."
+    />
+    <title>Change Mobile — Échange mobile money</title>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Change Mobile, accueil">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 64 48" focusable="false">
+            <path class="handshake-shape" d="M3 18 16 5l14 8 4 4 5-4 8 1 14 11-11 15-9-7-4 6-5-3-3 4-5-4-4-4-5 4-8-8Z" />
+            <path class="handshake-detail" d="m16 28 8-8a4 4 0 0 1 5 0l7 6 5-5a4 4 0 0 1 5 0l7 7M22 31l4 4m2-6 5 5m2-6 5 5m2-8 5 4" />
+          </svg>
+        </span>
+        <span>change<span class="brand-light">mobile</span></span>
+      </a>
+      <nav class="topbar-actions" aria-label="Navigation principale">
+        <a class="partner-link" href="presentation-partenaire.html">Dossier partenaire</a>
+        <span class="prototype-badge">Prototype</span>
+      </nav>
+    </header>
+
+    <main class="layout">
+      <section class="intro" aria-labelledby="page-title">
+        <p class="eyebrow">WAVE ↔ ORANGE MONEY</p>
+        <h1 id="page-title">Votre argent,<br />sur le bon portefeuille.</h1>
+        <p class="intro-copy">
+          Préparez une demande d’échange en quelques étapes. Les transferts ne
+          sont pas activés dans cette version de démonstration.
+        </p>
+        <div class="trust-note">
+          <span class="lock-icon" aria-hidden="true">◇</span>
+          <span>Aucun paiement réel ni débit ne sera effectué.</span>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="form-title">
+        <div class="panel-heading">
+          <div>
+            <p class="step-label">DEMANDE D’ÉCHANGE</p>
+            <h2 id="form-title">Commencer un échange</h2>
+          </div>
+          <span class="step-number" aria-hidden="true">01</span>
+        </div>
+
+        <form id="exchange-form">
+          <label for="country">Pays</label>
+          <select id="country" name="country" required>
+            <option value="SN">Sénégal</option>
+            <option value="CI">Côte d’Ivoire</option>
+            <option value="ML">Mali</option>
+          </select>
+
+          <fieldset class="wallet-fieldset">
+            <legend>De quel portefeuille partez-vous ?</legend>
+            <div class="wallet-options">
+              <label class="wallet-option">
+                <input type="radio" name="source" value="Wave" checked />
+                <span class="wallet-card wave-card">
+                  <span class="wallet-logo wave-logo" aria-hidden="true">W</span>
+                  <span>Wave</span>
+                </span>
+              </label>
+              <label class="wallet-option">
+                <input type="radio" name="source" value="Orange Money" />
+                <span class="wallet-card orange-card">
+                  <span class="wallet-logo orange-logo" aria-hidden="true">O</span>
+                  <span>Orange Money</span>
+                </span>
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="direction-row" aria-hidden="true">
+            <span></span>
+            <span class="direction-icon">↓</span>
+            <span></span>
+          </div>
+
+          <fieldset class="wallet-fieldset destination-fieldset">
+            <legend>Vers quel portefeuille ?</legend>
+            <div class="wallet-options">
+              <label class="wallet-option">
+                <input type="radio" name="destination" value="Wave" />
+                <span class="wallet-card wave-card">
+                  <span class="wallet-logo wave-logo" aria-hidden="true">W</span>
+                  <span>Wave</span>
+                </span>
+              </label>
+              <label class="wallet-option">
+                <input type="radio" name="destination" value="Orange Money" checked />
+                <span class="wallet-card orange-card">
+                  <span class="wallet-logo orange-logo" aria-hidden="true">O</span>
+                  <span>Orange Money</span>
+                </span>
+              </label>
+            </div>
+          </fieldset>
+
+          <label for="amount">Montant à échanger</label>
+          <div class="amount-wrap">
+            <input
+              id="amount"
+              name="amount"
+              type="number"
+              min="1"
+              step="1"
+              inputmode="numeric"
+              placeholder="Ex. 10 000"
+              required
+            />
+            <span id="currency-label" class="currency-label">FCFA</span>
+          </div>
+          <div class="fee-estimate" aria-live="polite">
+            <span>Frais de service estimés</span>
+            <strong id="fee-amount">Saisissez un montant</strong>
+            <p id="fee-note">Gratuit en dessous de 2 000 FCFA. À partir de 2 000 FCFA : 1 %.</p>
+            <p class="fee-recipient">Compte bénéficiaire non configuré. Aucun frais n’est collecté dans cette démo.</p>
+          </div>
+          <p class="field-hint">Les frais sont indiqués séparément ; aucun versement réel n’est effectué par ce prototype.</p>
+
+          <label for="phone">Numéro du portefeuille de destination</label>
+          <input
+            id="phone"
+            name="phone"
+            type="tel"
+            inputmode="tel"
+            autocomplete="tel"
+            placeholder="+221 77 000 00 00"
+            required
+          />
+
+          <button class="submit-button" type="submit">
+            Continuer <span aria-hidden="true">→</span>
+          </button>
+          <p id="form-error" class="form-message error-message" role="alert"></p>
+        </form>
+      </section>
+
+      <section id="request-section" class="request-section" aria-live="polite" hidden>
+        <div class="request-card">
+          <div class="request-icon" aria-hidden="true">✓</div>
+          <div class="request-content">
+            <p class="step-label">DEMANDE DE DÉMONSTRATION</p>
+            <h2>Demande enregistrée</h2>
+            <p id="request-summary"></p>
+            <p class="request-warning">
+              Ceci est une simulation locale. Aucun transfert n’a été effectué.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <footer class="page-footer">
+        <span>Prototype — services de paiement non connectés</span>
+        <span class="footer-dot" aria-hidden="true"></span>
+        <span>Sénégal · Côte d’Ivoire · Mali</span>
+      </footer>
+    </main>
+
+    <script>
+      if ("serviceWorker" in navigator && location.protocol !== "file:") {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("./service-worker.js");
+        });
+      }
+    </script>
+  </body>
+</html>

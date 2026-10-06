@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#102b25" />
+    <meta
+      name="description"
+      content="Présentation préliminaire du projet Change Mobile pour un prestataire de paiement au Sénégal."
+    />
+    <title>Présentation partenaire — Change Mobile</title>
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="presentation.css" />
+  </head>
+  <body>
+    <header class="document-header">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 64 48" focusable="false">
+            <path class="handshake-shape" d="M3 18 16 5l14 8 4 4 5-4 8 1 14 11-11 15-9-7-4 6-5-3-3 4-5-4-4-4-5 4-8-8Z" />
+            <path class="handshake-detail" d="m16 28 8-8a4 4 0 0 1 5 0l7 6 5-5a4 4 0 0 1 5 0l7 7M22 31l4 4m2-6 5 5m2-6 5 5m2-8 5 4" />
+          </svg>
+        </span>
+        <span>change<span class="brand-light">mobile</span></span>
+      </a>
+      <div class="header-actions">
+        <a class="back-link" href="index.html">Voir la démonstration</a>
+        <button class="print-button" type="button" onclick="window.print()">
+          Imprimer / PDF
+        </button>
+      </div>
+    </header>
+
+    <main class="document">
+      <section class="hero">
+        <p class="eyebrow">NOTE DE PRÉSENTATION · VERSION PRÉLIMINAIRE</p>
+        <div class="hero-title-row">
+          <div>
+            <h1>Change Mobile</h1>
+            <p class="subtitle">Projet de service d’échange entre portefeuilles mobile money</p>
+          </div>
+          <span class="status-badge">Étude de partenariat — aucun paiement actif</span>
+        </div>
+        <p class="hero-copy">
+          Nous souhaitons étudier avec un prestataire autorisé la faisabilité
+          d’un pilote au Sénégal permettant de demander un échange entre Wave
+          et Orange Money, dans un cadre contractuel, technique et réglementaire
+          validé avant tout lancement.
+        </p>
+        <div class="hero-facts">
+          <div><span>Pays pilote</span><strong>Sénégal</strong></div>
+          <div><span>Canaux envisagés</span><strong>Wave ↔ Orange Money</strong></div>
+          <div><span>État actuel</span><strong>Prototype de démonstration</strong></div>
+        </div>
+      </section>
+
+      <section class="notice" aria-label="Statut important">
+        <span class="notice-mark" aria-hidden="true">i</span>
+        <p>
+          <strong>Ce document ne vaut ni autorisation d’exercer, ni accord
+          commercial, ni intégration de paiement.</strong>
+          Le prototype ne collecte pas d’argent et n’effectue aucun transfert.
+          Le périmètre légal applicable doit être confirmé avec le prestataire
+          et des conseils qualifiés avant tout pilote.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <p class="section-kicker">01 · LE BESOIN</p>
+        <h2>Un parcours simple entre deux portefeuilles</h2>
+        <p>
+          Un client peut avoir des fonds sur un portefeuille mobile money et
+          souhaiter les retrouver sur un autre. Change Mobile vise à rendre la
+          demande compréhensible, à annoncer les coûts avant confirmation et à
+          suivre l’opération de manière vérifiable, sous réserve des services
+          effectivement autorisés et fournis par le partenaire.
+        </p>
+        <div class="two-cards">
+          <article class="info-card">
+            <span class="card-number">A</span>
+            <h3>Pour le client</h3>
+            <p>Choisir le sens de l’échange, saisir un montant et le portefeuille de destination, puis consulter les coûts avant de confirmer.</p>
+          </article>
+          <article class="info-card">
+            <span class="card-number">B</span>
+            <h3>Pour l’exploitation</h3>
+            <p>Ne traiter une opération qu’avec les comptes, interfaces, contrôles et procédures approuvés avec le prestataire.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="content-section">
+        <p class="section-kicker">02 · PILOTE PROPOSÉ</p>
+        <h2>Périmètre volontairement limité</h2>
+        <div class="scope-grid">
+          <div class="scope-item"><span class="check">✓</span><span>Un seul pays au démarrage : le Sénégal.</span></div>
+          <div class="scope-item"><span class="check">✓</span><span>Étude des échanges Wave vers Orange Money et Orange Money vers Wave.</span></div>
+          <div class="scope-item"><span class="check">✓</span><span>Parcours de démonstration sans fonds réels jusqu’à validation des prérequis.</span></div>
+          <div class="scope-item"><span class="check">✓</span><span>Extension géographique et nouveaux services uniquement après revue dédiée.</span></div>
+        </div>
+      </section>
+
+      <section class="content-section">
+        <p class="section-kicker">03 · TARIFICATION ENVISAGÉE</p>
+        <h2>Barème proposé, à valider</h2>
+        <div class="fee-table" role="table" aria-label="Barème de frais proposé">
+          <div class="fee-row fee-head" role="row">
+            <span role="columnheader">Montant de l’opération</span>
+            <span role="columnheader">Frais de service proposés</span>
+          </div>
+          <div class="fee-row" role="row">
+            <span role="cell">Moins de 2 000 FCFA</span>
+            <strong role="cell">0 FCFA</strong>
+          </div>
+          <div class="fee-row" role="row">
+            <span role="cell">À partir de 2 000 FCFA</span>
+            <strong role="cell">1 % du montant</strong>
+          </div>
+        </div>
+        <p class="small-note">
+          À titre d’exemple, 2 000 FCFA correspondent à 20 FCFA de frais selon
+          le barème proposé. Le prestataire et le porteur du projet doivent
+          valider l’assiette, l’arrondi, les taxes éventuelles, l’affichage au
+          client et le traitement des frais en cas d’échec ou de remboursement.
+          Il reste à décider si les frais s’ajoutent au montant débité ou sont
+          déduits du montant reçu.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <p class="section-kicker">04 · FLUX À CONCEVOIR AVEC LE PARTENAIRE</p>
+        <h2>Aucun circuit financier n’est présumé</h2>
+        <ol class="flow-list">
+          <li><span>1</span><p><strong>Demande</strong> — le client choisit le sens, les montants et les portefeuilles concernés.</p></li>
+          <li><span>2</span><p><strong>Devis préalable</strong> — le système présente le montant débité, les frais, le montant destinataire et les conditions, selon les règles approuvées.</p></li>
+          <li><span>3</span><p><strong>Autorisation</strong> — toute collecte, conversion ou distribution passe par les comptes et interfaces expressément autorisés par le partenaire.</p></li>
+          <li><span>4</span><p><strong>Confirmation</strong> — le statut est confirmé depuis une notification vérifiée du prestataire, puis un reçu et une piste d’audit sont produits.</p></li>
+        </ol>
+        <p class="small-note">
+          Le rôle exact de chaque partie, la détention des fonds, les comptes de
+          règlement, le traitement des frais et le mécanisme de transfert sont
+          à définir contractuellement. Aucun numéro de compte bénéficiaire ni
+          identifiant de paiement n’est inclus dans cette démonstration.
+        </p>
+      </section>
+
+      <section class="content-section">
+        <p class="section-kicker">05 · SÉCURITÉ ET EXPLOITATION</p>
+        <h2>Principes prévus avant une mise en production</h2>
+        <div class="security-grid">
+          <article><h3>Accès et secrets</h3><p>Identifiants détenus côté serveur, séparation des environnements, accès restreints et rotation des secrets.</p></article>
+          <article><h3>Transactions fiables</h3><p>Confirmation par le prestataire, protection contre les doublons, rapprochement et journalisation sans données sensibles.</p></article>
+          <article><h3>Protection du client</h3><p>Prix et conditions transparents, reçus, canal d’assistance et procédure de réclamation ou remboursement à définir.</p></article>
+          <article><h3>Tests encadrés</h3><p>Environnement de test et validation technique du prestataire avant toute opération avec des fonds réels.</p></article>
+        </div>
+        <p class="warning-line">
+          L’application ne demandera jamais le PIN ou le code OTP du client.
+        </p>
+      </section>
+
+      <section class="partner-request">
+        <p class="section-kicker">06 · OBJET DE LA DEMANDE AU PRESTATAIRE</p>
+        <h2>Étudier ensemble le cadre d’un pilote</h2>
+        <ul>
+          <li>Confirmer si le modèle d’activité peut être étudié avec votre établissement et sous quel statut ou dispositif.</li>
+          <li>Préciser les autorisations, contrats, justificatifs KYC/KYB et validations réglementaires nécessaires avant lancement.</li>
+          <li>Présenter les offres marchandes pertinentes, les frais, limites, délais de règlement et règles de remboursement.</li>
+          <li>Évaluer la disponibilité des parcours Wave et Orange Money, des API et d’un environnement sandbox pour le cas d’usage.</li>
+          <li>Définir les responsabilités opérationnelles, la gestion des incidents, la sécurité, les réclamations et le rapprochement.</li>
+          <li>Indiquer les étapes et critères d’approbation pour passer d’une démonstration à un pilote autorisé.</li>
+        </ul>
+        <div class="decision-note">
+          <strong>Accord du prestataire ≠ autorisation réglementaire automatique.</strong>
+          Les droits d’exploitation et le statut requis doivent être confirmés
+          pour le modèle exact avant d’accepter ou de transférer des fonds.
+        </div>
+      </section>
+
+      <section class="contact-block">
+        <p class="section-kicker">À COMPLÉTER AVANT ENVOI</p>
+        <div class="contact-grid">
+          <div><span>Porteur du projet / société</span><strong>[Nom légal à compléter]</strong></div>
+          <div><span>Représentant et fonction</span><strong>[À compléter]</strong></div>
+          <div><span>Adresse e-mail professionnelle</span><strong>[À compléter]</strong></div>
+          <div><span>Téléphone de contact</span><strong>[À compléter]</strong></div>
+        </div>
+      </section>
+
+      <footer class="document-footer">
+        <span>Change Mobile · note de discussion non contractuelle</span>
+        <a href="index.html">Retour au prototype</a>
+      </footer>
+    </main>
+  </body>
+</html>
