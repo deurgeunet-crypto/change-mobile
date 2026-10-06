@@ -1,4 +1,4 @@
-const CACHE_NAME = "change-mobile-prototype-v10";
+const CACHE_NAME = "change-mobile-prototype-v11";
 const APP_FILES = [
   "./",
   "./index.html",
@@ -14,7 +14,12 @@ const APP_FILES = [
 ];
 
 self.addEventListener("install", (event) => {
-  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_FILES)));
+  event.waitUntil(
+    Promise.all([
+      caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_FILES)),
+      self.skipWaiting(),
+    ]),
+  );
 });
 
 self.addEventListener("activate", (event) => {
@@ -29,7 +34,7 @@ self.addEventListener("activate", (event) => {
           )
           .map((key) => caches.delete(key)),
       ),
-    ),
+    ).then(() => self.clients.claim()),
   );
 });
 
