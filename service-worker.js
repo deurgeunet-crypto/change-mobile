@@ -1,4 +1,4 @@
-const CACHE_NAME = "change-mobile-prototype-v11";
+const CACHE_NAME = "change-mobile-prototype-v11 TING";
 const APP_FILES = [
   "./",
   "./index.html",
