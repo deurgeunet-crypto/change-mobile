@@ -1,4 +1,4 @@
-const CACHE_NAME = "change-mobile-prototype-v9";
+const CACHE_NAME = "change-mobile-prototype-v10";
 const APP_FILES = [
   "./",
   "./index.html",

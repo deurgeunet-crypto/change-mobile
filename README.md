@@ -62,8 +62,9 @@ navigateur.
 - Aucun compte bénéficiaire n’est configuré : l’estimation affichée n’est pas
   collectée et ne doit pas être présentée comme un frais déjà facturé.
 - Les frais affichés sont indicatifs : 0 FCFA en dessous de 2 000 FCFA, puis
-  1 % à partir de 2 000 FCFA. L’ajout au montant payé ou la déduction du
-  montant reçu, ainsi que l’arrondi éventuel, restent à définir.
+  1 % à partir de 2 000 FCFA. L’hypothèse de travail est de les ajouter au
+  montant débité; le débit et son arrondi doivent être confirmés avec le
+  prestataire.
 - Aucun taux de change n’est calculé. Le montant reçu doit être confirmé avant
   d’envisager une intégration réelle.
 - L’utilisation de services de paiement nécessite les intégrations, accords et
@@ -80,9 +81,9 @@ un pilote :
 2. Obtenir l’accord écrit d’un prestataire de paiement autorisé pour le modèle
    d’activité et ouvrir un compte marchand adapté. Ne pas utiliser un compte
    personnel comme compte de collecte.
-3. Décider clairement si les frais sont ajoutés au débit du client ou déduits
-   de la somme reçue; afficher et faire accepter le montant total avant
-   confirmation. Définir l’arrondi en FCFA et le traitement des remboursements.
+3. Valider avec le prestataire l’hypothèse de frais ajoutés au débit du client;
+   afficher et faire accepter le montant total avant confirmation. Définir
+   l’arrondi en FCFA et le traitement des remboursements.
 4. Construire un serveur qui calcule et vérifie les frais, crée les opérations
    et conserve la configuration du compte bénéficiaire dans un gestionnaire de
    secrets. Ne jamais placer ce numéro, des clés API, des PIN ou des OTP dans le

@@ -67,7 +67,7 @@
           </select>
 
           <fieldset class="wallet-fieldset">
-            <legend>De quel portefeuille partez-vous ?</legend>
+            <legend>Quel portefeuille sera débité ?</legend>
             <div class="wallet-options">
               <label class="wallet-option">
                 <input type="radio" name="source" value="Wave" checked />
@@ -85,6 +85,18 @@
               </label>
             </div>
           </fieldset>
+
+          <label for="sender-phone">Numéro du portefeuille d’envoi</label>
+          <input
+            id="sender-phone"
+            name="senderPhone"
+            type="tel"
+            inputmode="tel"
+            autocomplete="tel"
+            placeholder="+221 77 000 00 00"
+            required
+          />
+          <p class="field-hint">Saisissez votre numéro Wave ou Orange Money. Ne communiquez jamais votre PIN ni votre code OTP.</p>
 
           <div class="direction-row" aria-hidden="true">
             <span></span>
@@ -112,7 +124,7 @@
             </div>
           </fieldset>
 
-          <label for="amount">Montant à échanger</label>
+          <label for="amount">Montant à recevoir sur le portefeuille choisi</label>
           <div class="amount-wrap">
             <input
               id="amount"
@@ -130,11 +142,13 @@
             <span>Frais de service estimés</span>
             <strong id="fee-amount">Saisissez un montant</strong>
             <p id="fee-note">Gratuit en dessous de 2 000 FCFA. À partir de 2 000 FCFA : 1 %.</p>
+            <span>Débit total théorique (montant + frais)</span>
+            <strong id="total-debit">Saisissez un montant</strong>
             <p class="fee-recipient">Compte bénéficiaire non configuré. Aucun frais n’est collecté dans cette démo.</p>
           </div>
-          <p class="field-hint">Les frais sont indiqués séparément ; aucun versement réel n’est effectué par ce prototype.</p>
+          <p class="field-hint">Le débit réel, l’arrondi des frais et le montant reçu devront être confirmés avec le prestataire. Aucun transfert n’est effectué dans cette démo.</p>
 
-          <label for="phone">Numéro du portefeuille de destination</label>
+          <label for="phone">Numéro du portefeuille qui recevra l’échange</label>
           <input
             id="phone"
             name="phone"
