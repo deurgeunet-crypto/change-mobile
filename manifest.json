@@ -1,7 +1,7 @@
 {
   "name": "Change Mobile — Prototype",
   "short_name": "Change Mobile",
-  "description": "Prototype de demandes d'échange mobile money",
+  "description": "Prototype de demandes d'échange mobile money TING",
   "lang": "fr",
   "start_url": "./",
   "scope": "./",
