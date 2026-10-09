@@ -11,6 +11,10 @@
       name="description"
       content="Prototype de demandes d'échange entre portefeuilles mobile money."
     />
+    <meta
+      name="auth-api-base-url"
+      content="https://change-mobile-auth.deurgeunet.workers.dev"
+    />
     <title>Change Mobile — Échange mobile money</title>
     <link rel="manifest" href="manifest.json" />
     <link rel="icon" href="icon.svg" type="image/svg+xml" />
@@ -31,159 +35,179 @@
       </a>
       <nav class="topbar-actions" aria-label="Navigation principale">
         <a class="partner-link" href="presentation-partenaire.html">Dossier partenaire</a>
-        <span class="prototype-badge">Prototype</span>
+        <button id="logout-button" class="text-button" type="button" hidden>Se déconnecter</button>
+        <span class="prototype-badge">Démo</span>
       </nav>
     </header>
 
-    <main class="layout">
-      <section class="intro" aria-labelledby="page-title">
-        <p class="eyebrow">WAVE ↔ ORANGE MONEY</p>
-        <h1 id="page-title">Votre argent,<br />sur le bon portefeuille.</h1>
-        <p class="intro-copy">
-          Préparez une demande d’échange en quelques étapes. Les transferts ne
-          sont pas activés dans cette version de démonstration.
-        </p>
+    <main class="app-layout">
+      <section class="intro app-intro" aria-labelledby="page-title">
+        <p class="eyebrow">WAVE ↔ ORANGE MONEY · SÉNÉGAL</p>
+        <h1 id="page-title">Le change mobile,<br />en toute simplicité.</h1>
+        <p class="intro-copy">Préparez votre demande d’échange et consultez le débit estimé avant de continuer.</p>
         <div class="trust-note">
           <span class="lock-icon" aria-hidden="true">◇</span>
-          <span>Aucun paiement réel ni débit ne sera effectué.</span>
+          <span>Prototype de démonstration : aucun compte ne sera débité.</span>
         </div>
       </section>
 
-      <section class="panel" aria-labelledby="form-title">
-        <div class="panel-heading">
-          <div>
-            <p class="step-label">DEMANDE D’ÉCHANGE</p>
-            <h2 id="form-title">Commencer un échange</h2>
-          </div>
-          <span class="step-number" aria-hidden="true">01</span>
+      <section class="panel app-panel" aria-label="Parcours Change Mobile">
+        <div id="step-indicator" class="step-indicator" aria-label="Étape 1 sur 3">
+          <span class="step-dot is-active"></span><span></span><span></span>
+          <p id="step-caption">Étape 1 sur 3 · Accès</p>
         </div>
 
-        <form id="exchange-form">
-          <label for="country">Pays</label>
-          <select id="country" name="country" required>
-            <option value="SN">Sénégal</option>
-            <option value="CI">Côte d’Ivoire</option>
-            <option value="ML">Mali</option>
-          </select>
-
-          <fieldset class="wallet-fieldset">
-            <legend>Quel portefeuille sera débité ?</legend>
-            <div class="wallet-options">
-              <label class="wallet-option">
-                <input type="radio" name="source" value="Wave" checked />
-                <span class="wallet-card wave-card">
-                  <span class="wallet-logo wave-logo" aria-hidden="true">W</span>
-                  <span>Wave</span>
-                </span>
-              </label>
-              <label class="wallet-option">
-                <input type="radio" name="source" value="Orange Money" />
-                <span class="wallet-card orange-card">
-                  <span class="wallet-logo orange-logo" aria-hidden="true">O</span>
-                  <span>Orange Money</span>
-                </span>
-              </label>
+        <section id="auth-screen" class="app-screen" aria-labelledby="auth-title">
+          <div class="panel-heading">
+            <div>
+              <p class="step-label">BIENVENUE</p>
+              <h2 id="auth-title">Connectez-vous</h2>
             </div>
-          </fieldset>
-
-          <label for="sender-phone">Numéro du portefeuille d’envoi</label>
-          <input
-            id="sender-phone"
-            name="senderPhone"
-            type="tel"
-            inputmode="tel"
-            autocomplete="tel"
-            placeholder="+221 77 000 00 00"
-            required
-          />
-          <p class="field-hint">Saisissez votre numéro Wave ou Orange Money. Ne communiquez jamais votre PIN ni votre code OTP.</p>
-
-          <div class="direction-row" aria-hidden="true">
-            <span></span>
-            <span class="direction-icon">↓</span>
-            <span></span>
+          </div>
+          <div class="auth-tabs" role="tablist" aria-label="Connexion ou inscription">
+            <button id="login-tab" class="auth-tab is-selected" type="button" role="tab" aria-selected="true" aria-controls="login-form">Connexion</button>
+            <button id="signup-tab" class="auth-tab" type="button" role="tab" aria-selected="false" aria-controls="signup-form">Inscription</button>
           </div>
 
-          <fieldset class="wallet-fieldset destination-fieldset">
-            <legend>Vers quel portefeuille ?</legend>
-            <div class="wallet-options">
-              <label class="wallet-option">
-                <input type="radio" name="destination" value="Wave" />
-                <span class="wallet-card wave-card">
-                  <span class="wallet-logo wave-logo" aria-hidden="true">W</span>
-                  <span>Wave</span>
-                </span>
-              </label>
-              <label class="wallet-option">
-                <input type="radio" name="destination" value="Orange Money" checked />
-                <span class="wallet-card orange-card">
-                  <span class="wallet-logo orange-logo" aria-hidden="true">O</span>
-                  <span>Orange Money</span>
-                </span>
-              </label>
+          <form id="login-form" class="auth-form">
+            <label for="login-phone">Numéro de téléphone</label>
+            <input id="login-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+221 77 000 00 00" required />
+            <p class="field-hint">La connexion reste une simulation locale dans cette version.</p>
+            <button class="submit-button" type="submit">Se connecter <span aria-hidden="true">→</span></button>
+          </form>
+
+          <form id="signup-form" class="auth-form" hidden>
+            <label for="first-name">Prénom</label>
+            <input id="first-name" name="firstName" type="text" autocomplete="given-name" maxlength="60" required />
+            <label for="last-name">Nom</label>
+            <input id="last-name" name="lastName" type="text" autocomplete="family-name" maxlength="60" required />
+            <label for="signup-phone">Numéro de téléphone</label>
+            <input id="signup-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+221 77 000 00 00" required />
+            <fieldset class="channel-fieldset">
+              <legend>Recevoir le code par</legend>
+              <label><input type="radio" name="channel" value="sms" checked /> SMS</label>
+              <label><input type="radio" name="channel" value="whatsapp" /> WhatsApp</label>
+            </fieldset>
+            <p class="field-hint">Un code à usage unique sera envoyé pour confirmer que vous avez accès à ce numéro.</p>
+            <button class="submit-button" type="submit">Recevoir mon code <span aria-hidden="true">→</span></button>
+          </form>
+          <form id="verification-form" class="auth-form" hidden>
+            <p id="verification-destination" class="verification-destination"></p>
+            <label for="verification-code">Code de confirmation</label>
+            <input id="verification-code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{4,10}" maxlength="10" placeholder="Saisissez le code reçu" required />
+            <button class="submit-button" type="submit">Confirmer mon numéro <span aria-hidden="true">→</span></button>
+            <div class="verification-actions">
+              <button id="resend-code" class="text-button" type="button">Renvoyer le code</button>
+              <button id="change-phone" class="text-button" type="button">Modifier le numéro</button>
             </div>
+          </form>
+          <p id="auth-error" class="form-message error-message" role="alert"></p>
+          <p class="demo-notice">Le code confirme l’accès au numéro. Cette version ne crée pas de compte permanent et ne réalise aucun transfert.</p>
+        </section>
+
+        <section id="direction-screen" class="app-screen" aria-labelledby="direction-title" hidden>
+          <div class="panel-heading">
+            <div>
+              <p class="step-label">NOUVEL ÉCHANGE</p>
+              <h2 id="direction-title">Choisissez le sens du change</h2>
+            </div>
+            <span class="step-number">01</span>
+          </div>
+          <fieldset class="wallet-fieldset route-fieldset">
+            <legend>Je veux échanger</legend>
+            <label class="route-option">
+              <input type="radio" name="route" value="wave-orange" checked />
+              <span class="route-card">
+                <span class="wallet-logo wave-logo" aria-hidden="true">W</span><strong>Wave</strong>
+                <span class="route-arrow" aria-hidden="true">→</span>
+                <span class="wallet-logo orange-logo" aria-hidden="true">O</span><strong>Orange Money</strong>
+              </span>
+            </label>
+            <label class="route-option">
+              <input type="radio" name="route" value="orange-wave" />
+              <span class="route-card">
+                <span class="wallet-logo orange-logo" aria-hidden="true">O</span><strong>Orange Money</strong>
+                <span class="route-arrow" aria-hidden="true">→</span>
+                <span class="wallet-logo wave-logo" aria-hidden="true">W</span><strong>Wave</strong>
+              </span>
+            </label>
           </fieldset>
+          <p class="field-hint">Le premier portefeuille sera celui depuis lequel le montant sera envoyé.</p>
+          <button id="to-details" class="submit-button" type="button">Suivant <span aria-hidden="true">→</span></button>
+          <button id="logout-from-route" class="secondary-button" type="button">Retour à la connexion</button>
+        </section>
 
-          <label for="amount">Montant à recevoir sur le portefeuille choisi</label>
-          <div class="amount-wrap">
-            <input
-              id="amount"
-              name="amount"
-              type="number"
-              min="1"
-              step="1"
-              inputmode="numeric"
-              placeholder="Ex. 10 000"
-              required
-            />
-            <span id="currency-label" class="currency-label">FCFA</span>
+        <section id="details-screen" class="app-screen" aria-labelledby="details-title" hidden>
+          <div class="panel-heading">
+            <div>
+              <p class="step-label">DÉTAILS DE L’ÉCHANGE</p>
+              <h2 id="details-title">Préparez votre transfert</h2>
+            </div>
+            <span class="step-number">02</span>
           </div>
-          <div class="fee-estimate" aria-live="polite">
-            <span>Frais de service estimés</span>
-            <strong id="fee-amount">Saisissez un montant</strong>
-            <p id="fee-note">Gratuit en dessous de 2 000 FCFA. À partir de 2 000 FCFA : 1 %.</p>
-            <span>Débit total théorique (montant + frais)</span>
-            <strong id="total-debit">Saisissez un montant</strong>
-            <p class="fee-recipient">Compte bénéficiaire non configuré. Aucun frais n’est collecté dans cette démo.</p>
-          </div>
-          <p class="field-hint">Le débit réel, l’arrondi des frais et le montant reçu devront être confirmés avec le prestataire. Aucun transfert n’est effectué dans cette démo.</p>
+          <p id="route-summary" class="route-summary"></p>
+          <form id="exchange-form">
+            <fieldset class="wallet-fieldset number-choice-fieldset">
+              <legend>Numéro du portefeuille de départ</legend>
+              <label class="number-choice">
+                <input type="radio" name="numberChoice" value="registered" checked />
+                <span>Mon numéro inscrit <strong id="registered-phone-label"></strong></span>
+              </label>
+              <label class="number-choice">
+                <input type="radio" name="numberChoice" value="alternate" />
+                <span>Utiliser un autre numéro</span>
+              </label>
+            </fieldset>
+            <div id="alternate-phone-wrap" hidden>
+              <label for="alternate-phone">Autre numéro du portefeuille de départ</label>
+              <input id="alternate-phone" name="alternatePhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+221 77 000 00 00" />
+            </div>
 
-          <label for="phone">Numéro du portefeuille qui recevra l’échange</label>
-          <input
-            id="phone"
-            name="phone"
-            type="tel"
-            inputmode="tel"
-            autocomplete="tel"
-            placeholder="+221 77 000 00 00"
-            required
-          />
+            <div class="wallet-selected">
+              <span class="wallet-logo" id="source-wallet-logo" aria-hidden="true">W</span>
+              <span>Portefeuille de départ</span>
+              <strong id="source-wallet-name">Wave</strong>
+            </div>
 
-          <button class="submit-button" type="submit">
-            Continuer <span aria-hidden="true">→</span>
-          </button>
-          <p id="form-error" class="form-message error-message" role="alert"></p>
-        </form>
-      </section>
+            <label for="destination-phone">Numéro du portefeuille qui recevra le change</label>
+            <input id="destination-phone" name="destinationPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+221 77 000 00 00" required />
 
-      <section id="request-section" class="request-section" aria-live="polite" hidden>
-        <div class="request-card">
+            <label for="amount">Montant que le bénéficiaire doit recevoir</label>
+            <div class="amount-wrap">
+              <input id="amount" name="amount" type="number" min="1" step="1" inputmode="numeric" placeholder="Ex. 10 000" required />
+              <span class="currency-label">FCFA</span>
+            </div>
+            <div class="fee-estimate" aria-live="polite">
+              <span>Frais de service estimés</span>
+              <strong id="fee-amount">Saisissez un montant</strong>
+              <p id="fee-note">Gratuit en dessous de 2 000 FCFA. À partir de 2 000 FCFA : 1 %.</p>
+              <span>Débit total estimé</span>
+              <strong id="total-debit">Saisissez un montant</strong>
+              <p class="fee-recipient">Estimation de démonstration. Aucun débit ni transfert réel.</p>
+            </div>
+            <p class="field-hint">Les frais sont ajoutés au montant demandé. L’arrondi et le débit réel devront être validés avec le prestataire.</p>
+            <p id="form-error" class="form-message error-message" role="alert"></p>
+            <div class="button-row">
+              <button id="back-to-direction" class="secondary-button" type="button">Retour</button>
+              <button class="submit-button" type="submit">Voir le récapitulatif <span aria-hidden="true">→</span></button>
+            </div>
+          </form>
+        </section>
+
+        <section id="confirmation-screen" class="app-screen" aria-labelledby="confirmation-title" aria-live="polite" hidden>
           <div class="request-icon" aria-hidden="true">✓</div>
-          <div class="request-content">
-            <p class="step-label">DEMANDE DE DÉMONSTRATION</p>
-            <h2>Demande enregistrée</h2>
-            <p id="request-summary"></p>
-            <p class="request-warning">
-              Ceci est une simulation locale. Aucun transfert n’a été effectué.
-            </p>
-          </div>
-        </div>
+          <p class="step-label">RÉCAPITULATIF DE DÉMONSTRATION</p>
+          <h2 id="confirmation-title">Vérifiez votre demande</h2>
+          <p id="request-summary" class="confirmation-summary"></p>
+          <p class="request-warning">Cette demande est fictive : aucun paiement ni transfert n’a été effectué.</p>
+          <button id="new-exchange" class="submit-button" type="button">Préparer un autre échange</button>
+        </section>
       </section>
 
       <footer class="page-footer">
-        <span>Prototype — services de paiement non connectés</span>
+        <span>Prototype — comptes et paiements simulés</span>
         <span class="footer-dot" aria-hidden="true"></span>
-        <span>Sénégal · Côte d’Ivoire · Mali</span>
+        <span>Sénégal</span>
       </footer>
     </main>
 

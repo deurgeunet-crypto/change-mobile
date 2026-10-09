@@ -55,6 +55,13 @@ navigateur.
 
 ## Limites de cette version
 
+- L’inscription demande une confirmation Twilio par SMS ou WhatsApp lorsque le
+  Worker Cloudflare est déployé et que son URL est configurée dans `index.html`.
+  Sans ces étapes, aucun code n’est envoyé.
+- La confirmation établit seulement que la personne peut recevoir le code au
+  numéro fourni. Cette version ne crée pas de compte permanent : le profil est
+  conservé temporairement dans la session du navigateur, et la connexion reste
+  simulée. Ne pas utiliser cette démo comme authentification pour des paiements.
 - Les demandes sont uniquement affichées dans le navigateur; elles ne sont pas
   envoyées à un serveur ni enregistrées.
 - Wave et Orange Money ne sont pas connectés; aucun transfert ou paiement réel
@@ -69,6 +76,52 @@ navigateur.
   d’envisager une intégration réelle.
 - L’utilisation de services de paiement nécessite les intégrations, accords et
   autorisations applicables dans chaque pays.
+
+## Préparer la confirmation du numéro (Twilio + Cloudflare Workers)
+
+L’application reste hébergée sur GitHub Pages. Le Worker relaie les demandes
+vers Twilio Verify; les clés Twilio ne sont jamais placées dans le JavaScript
+public.
+
+1. Dans Twilio, crée un service **Verify**, puis une clé API de type
+   **Restricted** (SID `SK…` et secret). Dans les permissions Verify, autorise
+   uniquement **Create** pour `verification` et `verification-check`.
+   Configure les canaux nécessaires. Un compte d’essai Twilio ne peut envoyer
+   des codes qu’aux numéros préalablement vérifiés dans Twilio.
+2. Sur un ordinateur avec Node.js/npm installé, ouvre PowerShell à la racine du
+   projet et connecte Wrangler à ton compte Cloudflare :
+
+   ```powershell
+   npx wrangler login
+   npx wrangler deploy
+   npx wrangler secret put TWILIO_API_KEY_SID
+   npx wrangler secret put TWILIO_API_KEY_SECRET
+   npx wrangler deploy
+   ```
+
+   Copie le SID et le secret de la clé restreinte directement aux invites
+   Wrangler. Wrangler demande chaque secret de façon interactive. Ne les écris
+   jamais dans `app.js`, `index.html`, GitHub ou une commande enregistrée. Le
+   SID du service Verify est déjà configuré comme variable non secrète dans
+   `wrangler.toml`.
+   Si Wrangler signale que les identifiants `namespace_id` des limiteurs sont
+   déjà utilisés dans ton compte, remplace `91026001` et `91026002` par deux
+   identifiants entiers uniques dans `wrangler.toml`.
+3. Après le déploiement, Cloudflare affiche une adresse en
+   `*.workers.dev`. Copie-la dans l’attribut `content` de
+   `<meta name="auth-api-base-url">` dans `index.html`, sans barre oblique finale.
+   La liste `ALLOWED_ORIGINS` de `wrangler.toml` doit contenir l’origine exacte
+   du site web (actuellement `https://deurgeunet-crypto.github.io`, sans le
+   chemin `/change-mobile/`). Redéploie ensuite le site GitHub Pages.
+4. Essaie l’envoi avec un numéro dont tu contrôles la réception. Les demandes
+   d’envoi sont limitées à 3 par minute et les vérifications à 10 par minute,
+   par adresse IP et numéro haché dans une région Cloudflare. Ces limites ne
+   remplacent pas la protection anti-fraude de Twilio ni une revue de sécurité
+   avant une mise en production.
+
+Références : [Twilio Verify](https://www.twilio.com/docs/verify),
+[envoi WhatsApp](https://www.twilio.com/docs/verify/whatsapp) et
+[limitation de débit Cloudflare](https://developers.cloudflare.com/workers/runtime-apis/bindings/rate-limit/).
 
 ## Préparation d’un pilote réel au Sénégal
 
