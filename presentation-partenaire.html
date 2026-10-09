@@ -6,25 +6,20 @@
     <meta name="theme-color" content="#102b25" />
     <meta
       name="description"
-      content="Présentation préliminaire du projet Change Mobile pour un prestataire de paiement au Sénégal."
+      content="Brief produit WECCO destiné à un bureau de développement d’applications : vision, périmètre MVP, parcours et exigences techniques."
     />
-    <title>Présentation partenaire — Change Mobile</title>
-    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <title>WECCO — Brief produit pour bureau de développement</title>
+    <link rel="icon" href="icon.svg?brand=wecco-v2" type="image/svg+xml" />
     <link rel="stylesheet" href="presentation.css" />
   </head>
   <body>
     <header class="document-header">
       <a class="brand" href="index.html">
-        <span class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 64 48" focusable="false">
-            <path class="handshake-shape" d="M3 18 16 5l14 8 4 4 5-4 8 1 14 11-11 15-9-7-4 6-5-3-3 4-5-4-4-4-5 4-8-8Z" />
-            <path class="handshake-detail" d="m16 28 8-8a4 4 0 0 1 5 0l7 6 5-5a4 4 0 0 1 5 0l7 7M22 31l4 4m2-6 5 5m2-6 5 5m2-8 5 4" />
-          </svg>
-        </span>
-        <span>change<span class="brand-light">mobile</span></span>
+        <img class="brand-mark" src="icon.svg?brand=wecco-v2" alt="" aria-hidden="true" />
+        <span>WECCO</span>
       </a>
       <div class="header-actions">
-        <a class="back-link" href="index.html">Voir la démonstration</a>
+        <a class="back-link" href="index.html">Voir le prototype</a>
         <button class="print-button" type="button" onclick="window.print()">
           Imprimer / PDF
         </button>
@@ -33,76 +28,81 @@
 
     <main class="document">
       <section class="hero">
-        <p class="eyebrow">NOTE DE PRÉSENTATION · VERSION PRÉLIMINAIRE</p>
+        <p class="eyebrow">BRIEF PRODUIT · VERSION DE TRAVAIL</p>
         <div class="hero-title-row">
           <div>
-            <h1>Change Mobile</h1>
-            <p class="subtitle">Projet de service d’échange entre portefeuilles mobile money</p>
+            <h1>WECCO</h1>
+            <p class="subtitle">Brief de conception et de réalisation d’une application d’échange mobile money</p>
           </div>
-          <span class="status-badge">Étude de partenariat — aucun paiement actif</span>
+          <span class="status-badge">Prototype existant · aucun paiement actif</span>
         </div>
         <p class="hero-copy">
-          Nous souhaitons étudier avec un prestataire autorisé la faisabilité
-          d’un pilote au Sénégal permettant de demander un échange entre Wave
-          et Orange Money, dans un cadre contractuel, technique et réglementaire
-          validé avant tout lancement.
+          WECCO vise à simplifier les demandes d’échange entre portefeuilles
+          mobile money au Sénégal. Ce document présente le produit attendu à
+          un bureau de développement afin d’évaluer la conception, l’architecture,
+          le calendrier et le budget d’un MVP sécurisé.
         </p>
         <div class="hero-facts">
           <div><span>Pays pilote</span><strong>Sénégal</strong></div>
-          <div><span>Canaux envisagés</span><strong>Wave ↔ Orange Money</strong></div>
-          <div><span>État actuel</span><strong>Prototype de démonstration</strong></div>
+          <div><span>Plateformes visées</span><strong>Web mobile / PWA · à confirmer</strong></div>
+          <div><span>État actuel</span><strong>Prototype fonctionnel de démonstration</strong></div>
         </div>
       </section>
 
       <section class="notice" aria-label="Statut important">
         <span class="notice-mark" aria-hidden="true">i</span>
         <p>
-          <strong>Ce document ne vaut ni autorisation d’exercer, ni accord
-          commercial, ni intégration de paiement.</strong>
-          Le prototype ne collecte pas d’argent et n’effectue aucun transfert.
-          Le périmètre légal applicable doit être confirmé avec le prestataire
-          et des conseils qualifiés avant tout pilote.
+          <strong>Le prototype actuel ne collecte pas d’argent et n’effectue aucun transfert.</strong>
+          La vérification Twilio confirme l’accès à un numéro, mais ne crée pas
+          de compte permanent; les demandes restent dans le navigateur et ne
+          sont pas enregistrées côté serveur. L’intégration financière dépendra
+          des accords marchands, des API officielles et des autorisations
+          applicables. Chiffrer d’abord un MVP testable sans fonds réels.
         </p>
       </section>
 
       <section class="content-section">
-        <p class="section-kicker">01 · LE BESOIN</p>
-        <h2>Un parcours simple entre deux portefeuilles</h2>
+        <p class="section-kicker">01 · VISION PRODUIT</p>
+        <h2>Un parcours clair, du devis au suivi</h2>
         <p>
-          Un client peut avoir des fonds sur un portefeuille mobile money et
-          souhaiter les retrouver sur un autre. Change Mobile vise à rendre la
-          demande compréhensible, à annoncer les coûts avant confirmation et à
-          suivre l’opération de manière vérifiable, sous réserve des services
-          effectivement autorisés et fournis par le partenaire.
+          Un client choisit le portefeuille de départ et celui de destination,
+          indique les numéros et le montant, puis voit le coût estimé avant
+          toute confirmation. WECCO doit rendre chaque étape compréhensible et
+          permettre à l’équipe d’exploitation de suivre la demande. Le transfert
+          reste désactivé dans le prototype.
         </p>
         <div class="two-cards">
           <article class="info-card">
             <span class="card-number">A</span>
             <h3>Pour le client</h3>
-            <p>Choisir le sens de l’échange, saisir un montant et le portefeuille de destination, puis consulter les coûts avant de confirmer.</p>
+            <p>Choisir Wave → Orange Money ou l’inverse, vérifier les numéros et le devis, puis suivre le statut de la demande.</p>
           </article>
           <article class="info-card">
             <span class="card-number">B</span>
-            <h3>Pour l’exploitation</h3>
-            <p>Ne traiter une opération qu’avec les comptes, interfaces, contrôles et procédures approuvés avec le prestataire.</p>
+            <h3>Pour l’équipe WECCO</h3>
+            <p>Consulter les demandes, disposer d’un historique exploitable et traiter les exceptions avec des rôles et des traces d’audit.</p>
           </article>
         </div>
       </section>
 
       <section class="content-section">
-        <p class="section-kicker">02 · PILOTE PROPOSÉ</p>
-        <h2>Périmètre volontairement limité</h2>
+        <p class="section-kicker">02 · PÉRIMÈTRE MVP</p>
+        <h2>Une première version utile et évolutive</h2>
         <div class="scope-grid">
-          <div class="scope-item"><span class="check">✓</span><span>Un seul pays au démarrage : le Sénégal.</span></div>
-          <div class="scope-item"><span class="check">✓</span><span>Étude des échanges Wave vers Orange Money et Orange Money vers Wave.</span></div>
-          <div class="scope-item"><span class="check">✓</span><span>Parcours de démonstration sans fonds réels jusqu’à validation des prérequis.</span></div>
-          <div class="scope-item"><span class="check">✓</span><span>Extension géographique et nouveaux services uniquement après revue dédiée.</span></div>
+          <div class="scope-item"><span class="check">✓</span><span>Application web mobile-first, installable en PWA; le bureau précisera si une application native est préférable.</span></div>
+          <div class="scope-item"><span class="check">✓</span><span>Inscription et connexion par numéro, avec code OTP et comptes persistants côté serveur.</span></div>
+          <div class="scope-item"><span class="check">✓</span><span>Deux parcours : Wave → Orange Money et Orange Money → Wave.</span></div>
+          <div class="scope-item"><span class="check">✓</span><span>Devis détaillé : montant, frais, total débité et montant destinataire, selon règles validées.</span></div>
+          <div class="scope-item"><span class="check">✓</span><span>Historique client et statuts lisibles : brouillon, en attente, confirmé, échoué ou remboursé.</span></div>
+          <div class="scope-item"><span class="check">✓</span><span>Interface d’administration minimale pour consulter et suivre les demandes autorisées.</span></div>
+          <div class="scope-item"><span class="check">✓</span><span>Mode sandbox/démonstration clairement séparé de toute opération avec fonds réels.</span></div>
+          <div class="scope-item"><span class="check">✓</span><span>Architecture permettant d’ajouter les API du prestataire après obtention des accès.</span></div>
         </div>
       </section>
 
       <section class="content-section">
-        <p class="section-kicker">03 · TARIFICATION ENVISAGÉE</p>
-        <h2>Barème proposé, à valider</h2>
+        <p class="section-kicker">03 · RÈGLE MÉTIER À CONFIGURER</p>
+        <h2>Frais de service envisagés</h2>
         <div class="fee-table" role="table" aria-label="Barème de frais proposé">
           <div class="fee-row fee-head" role="row">
             <span role="columnheader">Montant de l’opération</span>
@@ -119,76 +119,74 @@
         </div>
         <p class="small-note">
           À titre d’exemple, 2 000 FCFA correspondent à 20 FCFA de frais selon
-          le barème proposé. Le prestataire et le porteur du projet doivent
-          valider l’assiette, l’arrondi, les taxes éventuelles, l’affichage au
-          client et le traitement des frais en cas d’échec ou de remboursement.
-          L’hypothèse de travail est que les frais s’ajoutent au montant débité;
-          le débit exact et l’arrondi restent à valider avec le prestataire.
+          le barème proposé. Cette règle reste à confirmer avant développement.
+          L’assiette, l’arrondi, les taxes éventuelles, l’affichage, le
+          remboursement et l’hypothèse de frais ajoutés au montant débité
+          devront être validés et couverts par des tests.
         </p>
       </section>
 
       <section class="content-section">
-        <p class="section-kicker">04 · FLUX À CONCEVOIR AVEC LE PARTENAIRE</p>
-        <h2>Aucun circuit financier n’est présumé</h2>
+        <p class="section-kicker">04 · PARCOURS ET INTÉGRATION</p>
+        <h2>Un flux piloté par le serveur</h2>
         <ol class="flow-list">
-          <li><span>1</span><p><strong>Demande</strong> — le client choisit le sens, les montants et les portefeuilles concernés.</p></li>
-          <li><span>2</span><p><strong>Devis préalable</strong> — le système présente le montant débité, les frais, le montant destinataire et les conditions, selon les règles approuvées.</p></li>
-          <li><span>3</span><p><strong>Autorisation</strong> — toute collecte, conversion ou distribution passe par les comptes et interfaces expressément autorisés par le partenaire.</p></li>
-          <li><span>4</span><p><strong>Confirmation</strong> — le statut est confirmé depuis une notification vérifiée du prestataire, puis un reçu et une piste d’audit sont produits.</p></li>
+          <li><span>1</span><p><strong>Demande et devis</strong> — le serveur valide les données et calcule le total selon une règle métier versionnée.</p></li>
+          <li><span>2</span><p><strong>Paiement</strong> — le client suit le parcours officiel du prestataire; WECCO ne recueille aucun PIN ou OTP.</p></li>
+          <li><span>3</span><p><strong>Confirmation fiable</strong> — le serveur vérifie le retour signé/webhook du prestataire, et non une simple réponse du navigateur.</p></li>
+          <li><span>4</span><p><strong>Versement et suivi</strong> — le transfert de sortie n’est lancé que si l’API et le contrat le permettent; chaque étape est idempotente et traçable.</p></li>
         </ol>
         <p class="small-note">
-          Le rôle exact de chaque partie, la détention des fonds, les comptes de
-          règlement, le traitement des frais et le mécanisme de transfert sont
-          à définir contractuellement. Aucun numéro de compte bénéficiaire ni
-          identifiant de paiement n’est inclus dans cette démonstration.
+          Le partenaire devra confirmer la prise en charge de la collecte ET
+          des versements pour les deux sens. Aucun circuit de fonds n’est
+          supposé disponible avant validation contractuelle et sandbox.
         </p>
       </section>
 
       <section class="content-section">
-        <p class="section-kicker">05 · SÉCURITÉ ET EXPLOITATION</p>
-        <h2>Principes prévus avant une mise en production</h2>
+        <p class="section-kicker">05 · EXIGENCES TECHNIQUES</p>
+        <h2>Construire une base fiable avant l’intégration paiement</h2>
         <div class="security-grid">
-          <article><h3>Accès et secrets</h3><p>Identifiants détenus côté serveur, séparation des environnements, accès restreints et rotation des secrets.</p></article>
-          <article><h3>Transactions fiables</h3><p>Confirmation par le prestataire, protection contre les doublons, rapprochement et journalisation sans données sensibles.</p></article>
-          <article><h3>Protection du client</h3><p>Prix et conditions transparents, reçus, canal d’assistance et procédure de réclamation ou remboursement à définir.</p></article>
-          <article><h3>Tests encadrés</h3><p>Environnement de test et validation technique du prestataire avant toute opération avec des fonds réels.</p></article>
+          <article><h3>Architecture</h3><p>Frontend découplé, API backend documentée, base de données relationnelle et environnements développement, sandbox et production séparés.</p></article>
+          <article><h3>Identité et données</h3><p>Comptes persistants, OTP limité à la vérification du numéro, contrôle d’accès par rôle et collecte minimale de données.</p></article>
+          <article><h3>Fiabilité</h3><p>États de transaction explicites, idempotence, reprise sur incident, journal d’audit et rapprochement avec le prestataire.</p></article>
+          <article><h3>Opérations</h3><p>Secrets conservés côté serveur, validation des webhooks, alertes, sauvegardes, tests automatisés et documentation de déploiement.</p></article>
         </div>
         <p class="warning-line">
-          L’application ne demandera jamais le PIN ou le code OTP du client.
+          Ne jamais placer une clé privée, un PIN ou un OTP client dans le frontend, les dépôts ou les journaux.
         </p>
       </section>
 
       <section class="partner-request">
-        <p class="section-kicker">06 · OBJET DE LA DEMANDE AU PRESTATAIRE</p>
-        <h2>Étudier ensemble le cadre d’un pilote</h2>
+        <p class="section-kicker">06 · LIVRABLES ET DEMANDE DE DEVIS</p>
+        <h2>Ce que nous attendons du bureau de développement</h2>
         <ul>
-          <li>Confirmer si le modèle d’activité peut être étudié avec votre établissement et sous quel statut ou dispositif.</li>
-          <li>Préciser les autorisations, contrats, justificatifs KYC/KYB et validations réglementaires nécessaires avant lancement.</li>
-          <li>Présenter les offres marchandes pertinentes, les frais, limites, délais de règlement et règles de remboursement.</li>
-          <li>Évaluer la disponibilité des parcours Wave et Orange Money, des API et d’un environnement sandbox pour le cas d’usage.</li>
-          <li>Définir les responsabilités opérationnelles, la gestion des incidents, la sécurité, les réclamations et le rapprochement.</li>
-          <li>Indiquer les étapes et critères d’approbation pour passer d’une démonstration à un pilote autorisé.</li>
+          <li>Audit du prototype existant et atelier de cadrage pour transformer ce brief en spécifications fonctionnelles et techniques.</li>
+          <li>Proposition UX/UI responsive et validation des écrans avant développement.</li>
+          <li>Estimation séparée frontend, backend, base de données, interface d’administration, tests et déploiement.</li>
+          <li>Architecture proposée, choix technologiques, modèle de données et documentation des API.</li>
+          <li>Plan de sécurité, stratégie de test, critères de recette, maintenance, hébergement et coûts récurrents.</li>
+          <li>Devis par phases, calendrier, dépendances, propriété du code livré, maintenance et prérequis attendus du porteur et du prestataire.</li>
         </ul>
         <div class="decision-note">
-          <strong>Accord du prestataire ≠ autorisation réglementaire automatique.</strong>
-          Les droits d’exploitation et le statut requis doivent être confirmés
-          pour le modèle exact avant d’accepter ou de transférer des fonds.
+          <strong>Merci de distinguer le MVP sans fonds réels de l’intégration paiement.</strong>
+          Cette dernière dépendra des accès sandbox, des contrats et des validations
+          applicables; elle doit être chiffrée comme une phase conditionnelle.
         </div>
       </section>
 
       <section class="contact-block">
-        <p class="section-kicker">À COMPLÉTER AVANT ENVOI</p>
+        <p class="section-kicker">CONTACT PROJET</p>
         <div class="contact-grid">
-          <div><span>Porteur du projet / société</span><strong>[Nom légal à compléter]</strong></div>
-          <div><span>Représentant et fonction</span><strong>[À compléter]</strong></div>
-          <div><span>Adresse e-mail professionnelle</span><strong>[À compléter]</strong></div>
-          <div><span>Téléphone de contact</span><strong>[À compléter]</strong></div>
+          <div><span>Porteur du projet</span><strong>BAYE ABDOULAYE THIAM</strong></div>
+          <div><span>Fonction</span><strong>CEO / fondateur</strong></div>
+          <div><span>E-mail</span><strong>bayeabdoulaye90@hotmail.com</strong></div>
+          <div><span>Téléphone</span><strong>+221 77 202 43 68</strong></div>
         </div>
       </section>
 
       <footer class="document-footer">
-        <span>Change Mobile · note de discussion non contractuelle</span>
-        <a href="index.html">Retour au prototype</a>
+        <span>WECCO · Brief produit de travail · Octobre 2026</span>
+        <a href="index.html">Retour à WECCO</a>
       </footer>
     </main>
   </body>

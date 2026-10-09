@@ -1,4 +1,4 @@
-const CACHE_NAME = "change-mobile-prototype-v14";
+const CACHE_NAME = "wecco-app-v5";
 const APP_FILES = [
   "./",
   "./index.html",
@@ -7,10 +7,10 @@ const APP_FILES = [
   "./styles.css",
   "./app.js",
   "./manifest.json",
-  "./icon.svg",
-  "./apple-touch-icon.png",
-  "./icon-192.png",
-  "./icon-512.png",
+  "./icon.svg?brand=wecco-v2",
+  "./apple-touch-icon.png?brand=wecco-v2",
+  "./icon-192.png?brand=wecco-v2",
+  "./icon-512.png?brand=wecco-v2",
 ];
 
 self.addEventListener("install", (event) => {
@@ -29,7 +29,8 @@ self.addEventListener("activate", (event) => {
         keys
           .filter(
             (key) =>
-              key.startsWith("change-mobile-prototype-") &&
+              (key.startsWith("change-mobile-prototype-") ||
+                key.startsWith("wecco-app-")) &&
               key !== CACHE_NAME,
           )
           .map((key) => caches.delete(key)),

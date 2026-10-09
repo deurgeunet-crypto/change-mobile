@@ -48,32 +48,8 @@ a {
 .brand-mark {
   width: 30px;
   height: 30px;
-  display: grid;
-  place-items: center;
-  border-radius: 9px;
-  background: linear-gradient(90deg, #f28c28 0 50%, #45bde8 50% 100%);
-  color: #fff;
-}
-
-.brand-mark svg {
-  width: 25px;
-  height: 23px;
-  overflow: visible;
-}
-
-.handshake-shape {
-  fill: #fff;
-  stroke: #17352e;
-  stroke-linejoin: round;
-  stroke-width: 2.5;
-}
-
-.handshake-detail {
-  fill: none;
-  stroke: #17352e;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 2.3;
+  display: block;
+  border-radius: 8px;
 }
 
 .brand-light {

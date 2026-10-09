@@ -1,15 +1,19 @@
-const PROFILE_KEY = "change-mobile-demo-profile";
+// Clé du stockage de session utilisé pour conserver le profil temporaire.
+const PROFILE_KEY = "WECCO-demo-profile";
+// Définition des parcours supportés par la démonstration.
 const routes = {
   "wave-orange": { source: "Wave", destination: "Orange Money" },
   "orange-wave": { source: "Orange Money", destination: "Wave" },
 };
 
+// Références des écrans du parcours de demande d’échange.
 const screens = {
   auth: document.querySelector("#auth-screen"),
   direction: document.querySelector("#direction-screen"),
   details: document.querySelector("#details-screen"),
   confirmation: document.querySelector("#confirmation-screen"),
 };
+// Éléments visuels qui indiquent l’état du parcours d’étapes.
 const stepCaption = document.querySelector("#step-caption");
 const stepIndicator = document.querySelector("#step-indicator");
 const loginForm = document.querySelector("#login-form");
@@ -27,16 +31,20 @@ const alternatePhoneWrap = document.querySelector("#alternate-phone-wrap");
 const logoutButton = document.querySelector("#logout-button");
 const verificationForm = document.querySelector("#verification-form");
 
+// Profil courant de l’utilisateur et accès en attente de vérification.
 let profile = null;
 let pendingSignup = null;
 
+// Formatte les montants selon le style local du Sénégal (espace et décimales).
 const formatAmount = (amount, maximumFractionDigits = 0) =>
   new Intl.NumberFormat("fr-FR", { maximumFractionDigits }).format(amount);
 
+// Frais simulés de la démo : gratuit sous 2 000 FCFA, puis 1 %.
 const getServiceFee = (amount) => (amount >= 2000 ? amount / 100 : 0);
 const getSelectedRoute = () =>
   routes[document.querySelector('input[name="route"]:checked').value];
 
+// Gère la vue active et l’indicateur d’étapes du parcours de demande.
 const showScreen = (screenName, step, caption) => {
   Object.entries(screens).forEach(([name, screen]) => {
     screen.hidden = name !== screenName;
@@ -49,6 +57,7 @@ const showScreen = (screenName, step, caption) => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
 
+// Met à jour le calcul des frais et du débit total selon le montant saisi.
 const updateFeeEstimate = () => {
   const amount = Number(amountInput.value);
   if (!Number.isSafeInteger(amount) || amount <= 0) {
@@ -68,6 +77,7 @@ const updateFeeEstimate = () => {
       : "Calculé à 1 % ; frais ajoutés au débit théorique, avant arrondi.";
 };
 
+// Active l’état de session après validation du code.
 const setProfile = (nextProfile) => {
   profile = nextProfile;
   document.querySelector("#registered-phone-label").textContent = profile.phone;
@@ -77,6 +87,7 @@ const setProfile = (nextProfile) => {
   showScreen("direction", 2, "Sens du change");
 };
 
+// Validation simple des numéros pour la démo front-end.
 const isValidPhone = (phone) => {
   const digits = phone.replace(/\D/g, "");
   return digits.length >= 8 && digits.length <= 15;
@@ -85,6 +96,7 @@ const isValidPhone = (phone) => {
 const normalizePhone = (phone) => phone.trim().replace(/[\s().-]/g, "");
 const isValidE164Phone = (phone) => /^\+[1-9]\d{7,14}$/.test(phone);
 
+// Envoie les requêtes d’inscription / vérification au worker auth configuré.
 const postAuthRequest = async (path, payload) => {
   const authApiBaseUrl = document
     .querySelector('meta[name="auth-api-base-url"]')
@@ -128,11 +140,14 @@ const postAuthRequest = async (path, payload) => {
   return result;
 };
 
+// Demande un code de vérification et affiche ensuite le formulaire de confirmation.
 const requestVerificationCode = async (signup, isResend = false) => {
   authError.textContent = "";
   const button = isResend
     ? document.querySelector("#resend-code")
-    : signupForm.querySelector('button[type="submit"]');
+    : signup.mode === "login"
+      ? loginForm.querySelector('button[type="submit"]')
+      : signupForm.querySelector('button[type="submit"]');
   button.disabled = true;
   try {
     await postAuthRequest("/auth/start", {
@@ -148,6 +163,10 @@ const requestVerificationCode = async (signup, isResend = false) => {
       "Confirmez votre numéro";
     document.querySelector("#verification-destination").textContent =
       `Un code a été demandé par ${signup.channel === "sms" ? "SMS" : "WhatsApp"} pour ${signup.phone}.`;
+    document.querySelector("#confirm-code").textContent =
+      signup.mode === "login"
+        ? "Confirmer et continuer →"
+        : "Confirmer mon numéro →";
     document.querySelector("#verification-code").focus();
   } catch (error) {
     authError.textContent = error.message;
@@ -182,43 +201,27 @@ document.querySelector("#signup-tab").addEventListener("click", () => {
   authError.textContent = "";
 });
 
-loginForm.addEventListener("submit", (event) => {
+// Toute connexion vérifie le contrôle du numéro avant d’ouvrir une session.
+loginForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   authError.textContent = "";
-  const phone = String(new FormData(loginForm).get("phone")).trim();
-  if (!isValidPhone(phone)) {
-    authError.textContent = "Saisissez un numéro de téléphone valide.";
-    return;
-  }
-
-  let savedProfile = null;
-  try {
-    savedProfile = JSON.parse(sessionStorage.getItem(PROFILE_KEY));
-  } catch {
+  const phone = normalizePhone(String(new FormData(loginForm).get("phone")));
+  if (!isValidE164Phone(phone)) {
     authError.textContent =
-      "Impossible de lire le profil de démonstration sur cet appareil.";
+      "Saisissez un numéro au format international, par exemple +221770000000.";
     return;
   }
 
-  if (
-    savedProfile !== null &&
-    (typeof savedProfile !== "object" ||
-      typeof savedProfile.phone !== "string" ||
-      typeof savedProfile.firstName !== "string" ||
-      typeof savedProfile.lastName !== "string")
-  ) {
-    authError.textContent =
-      "Le profil de démonstration enregistré est invalide. Inscrivez-vous à nouveau.";
-    return;
-  }
-
-  const nextProfile =
-    savedProfile && savedProfile.phone === phone
-      ? savedProfile
-      : { firstName: "", lastName: "", phone };
-  setProfile(nextProfile);
+  requestVerificationCode({
+    firstName: "",
+    lastName: "",
+    phone,
+    channel: "sms",
+    mode: "login",
+  });
 });
 
+// Inscription de la démo : validation du prénom, nom, numéro et canal.
 signupForm.addEventListener("submit", (event) => {
   event.preventDefault();
   authError.textContent = "";
@@ -238,9 +241,10 @@ signupForm.addEventListener("submit", (event) => {
     return;
   }
 
-  requestVerificationCode({ firstName, lastName, phone, channel });
+  requestVerificationCode({ firstName, lastName, phone, channel, mode: "signup" });
 });
 
+// Vérifie le code reçu avant d’enregistrer le profil temporaire.
 verificationForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   authError.textContent = "";
@@ -303,16 +307,20 @@ document.querySelector("#resend-code").addEventListener("click", () => {
 });
 
 document.querySelector("#change-phone").addEventListener("click", () => {
+  const returnToLogin = pendingSignup?.mode === "login";
   pendingSignup = null;
   verificationForm.reset();
   verificationForm.hidden = true;
-  signupForm.hidden = false;
-  document.querySelector("#auth-title").textContent =
-    "Créer un compte démo";
+  loginForm.hidden = !returnToLogin;
+  signupForm.hidden = returnToLogin;
+  document.querySelector("#auth-title").textContent = returnToLogin
+    ? "Connectez-vous"
+    : "Créer un compte démo";
   authError.textContent = "";
-  document.querySelector("#signup-tab").focus();
+  document.querySelector(returnToLogin ? "#login-tab" : "#signup-tab").focus();
 });
 
+// Prépare les détails du parcours à partir du sens sélectionné.
 document.querySelector("#to-details").addEventListener("click", () => {
   const route = getSelectedRoute();
   document.querySelector("#route-summary").textContent =
@@ -346,6 +354,7 @@ document.querySelectorAll('input[name="numberChoice"]').forEach((input) => {
 
 amountInput.addEventListener("input", updateFeeEstimate);
 
+// Récapitulatif final de la demande avant validation visuelle du prototype.
 exchangeForm.addEventListener("submit", (event) => {
   event.preventDefault();
   errorMessage.textContent = "";
@@ -397,6 +406,7 @@ document.querySelector("#new-exchange").addEventListener("click", () => {
   showScreen("direction", 2, "Sens du change");
 });
 
+// Supprime le profil temporaire et revient à l’écran d’authentification.
 const logout = () => {
   try {
     sessionStorage.removeItem(PROFILE_KEY);

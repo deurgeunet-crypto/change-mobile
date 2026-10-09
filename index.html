@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#102b25" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <meta name="apple-mobile-web-app-title" content="Change Mobile" />
+    <meta name="apple-mobile-web-app-title" content="WECCO" />
     <meta
       name="description"
       content="Prototype de demandes d'échange entre portefeuilles mobile money."
@@ -15,26 +15,21 @@
       name="auth-api-base-url"
       content="https://change-mobile-auth.deurgeunet.workers.dev"
     />
-    <title>Change Mobile — Échange mobile money</title>
+    <title>WECCO — Échange mobile money</title>
     <link rel="manifest" href="manifest.json" />
-    <link rel="icon" href="icon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="icon" href="icon.svg?brand=wecco-v2" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png?brand=wecco-v2" />
     <link rel="stylesheet" href="styles.css" />
     <script src="app.js" defer></script>
   </head>
   <body>
     <header class="topbar">
-      <a class="brand" href="#" aria-label="Change Mobile, accueil">
-        <span class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 64 48" focusable="false">
-            <path class="handshake-shape" d="M3 18 16 5l14 8 4 4 5-4 8 1 14 11-11 15-9-7-4 6-5-3-3 4-5-4-4-4-5 4-8-8Z" />
-            <path class="handshake-detail" d="m16 28 8-8a4 4 0 0 1 5 0l7 6 5-5a4 4 0 0 1 5 0l7 7M22 31l4 4m2-6 5 5m2-6 5 5m2-8 5 4" />
-          </svg>
-        </span>
-        <span>change<span class="brand-light">mobile</span></span>
+      <a class="brand" href="#" aria-label="WECCO, accueil">
+        <img class="brand-mark" src="icon.svg?brand=wecco-v2" alt="" aria-hidden="true" />
+        <span>WECCO</span>
       </a>
       <nav class="topbar-actions" aria-label="Navigation principale">
-        <a class="partner-link" href="presentation-partenaire.html">Dossier partenaire</a>
+        <a class="partner-link" href="presentation-partenaire.html">Brief projet</a>
         <button id="logout-button" class="text-button" type="button" hidden>Se déconnecter</button>
         <span class="prototype-badge">Démo</span>
       </nav>
@@ -43,7 +38,7 @@
     <main class="app-layout">
       <section class="intro app-intro" aria-labelledby="page-title">
         <p class="eyebrow">WAVE ↔ ORANGE MONEY · SÉNÉGAL</p>
-        <h1 id="page-title">Le change mobile,<br />en toute simplicité.</h1>
+        <h1 id="page-title">L’échange mobile,<br />en toute simplicité.</h1>
         <p class="intro-copy">Préparez votre demande d’échange et consultez le débit estimé avant de continuer.</p>
         <div class="trust-note">
           <span class="lock-icon" aria-hidden="true">◇</span>
@@ -51,7 +46,7 @@
         </div>
       </section>
 
-      <section class="panel app-panel" aria-label="Parcours Change Mobile">
+      <section class="panel app-panel" aria-label="Parcours WECCO">
         <div id="step-indicator" class="step-indicator" aria-label="Étape 1 sur 3">
           <span class="step-dot is-active"></span><span></span><span></span>
           <p id="step-caption">Étape 1 sur 3 · Accès</p>
@@ -72,8 +67,8 @@
           <form id="login-form" class="auth-form">
             <label for="login-phone">Numéro de téléphone</label>
             <input id="login-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+221 77 000 00 00" required />
-            <p class="field-hint">La connexion reste une simulation locale dans cette version.</p>
-            <button class="submit-button" type="submit">Se connecter <span aria-hidden="true">→</span></button>
+            <p class="field-hint">Un code SMS sera demandé pour vérifier que vous contrôlez ce numéro.</p>
+            <button class="submit-button" type="submit">Recevoir un code SMS <span aria-hidden="true">→</span></button>
           </form>
 
           <form id="signup-form" class="auth-form" hidden>
@@ -95,14 +90,14 @@
             <p id="verification-destination" class="verification-destination"></p>
             <label for="verification-code">Code de confirmation</label>
             <input id="verification-code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{4,10}" maxlength="10" placeholder="Saisissez le code reçu" required />
-            <button class="submit-button" type="submit">Confirmer mon numéro <span aria-hidden="true">→</span></button>
+            <button id="confirm-code" class="submit-button" type="submit">Confirmer mon numéro →</button>
             <div class="verification-actions">
               <button id="resend-code" class="text-button" type="button">Renvoyer le code</button>
               <button id="change-phone" class="text-button" type="button">Modifier le numéro</button>
             </div>
           </form>
           <p id="auth-error" class="form-message error-message" role="alert"></p>
-          <p class="demo-notice">Le code confirme l’accès au numéro. Cette version ne crée pas de compte permanent et ne réalise aucun transfert.</p>
+          <p class="demo-notice">Le code vérifie l’accès au numéro, mais ne crée pas de compte permanent. Les demandes restent fictives et aucun transfert n’est réalisé.</p>
         </section>
 
         <section id="direction-screen" class="app-screen" aria-labelledby="direction-title" hidden>

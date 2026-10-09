@@ -1,4 +1,4 @@
-# Change Mobile — Prototype
+# WECCO — Prototype
 
 Prototype responsive de demandes d’échange entre Wave et Orange Money, préparé
 pour présenter un projet de pilote au Sénégal. L’interface peut être utilisée
@@ -49,19 +49,20 @@ Le premier déploiement peut nécessiter quelques minutes. Les futures mises à
 jour de la branche `main` seront publiées automatiquement.
 
 Le dossier [presentation-partenaire.html](./presentation-partenaire.html) présente
-le concept, le périmètre du pilote, le barème proposé et les questions à valider
-avec un prestataire. Il peut être imprimé ou enregistré en PDF depuis le
-navigateur.
+WECCO à un bureau de développement d’applications : vision produit, périmètre
+MVP, parcours, exigences techniques et questions pour chiffrer la réalisation.
+Il peut être imprimé ou enregistré en PDF depuis le navigateur.
 
 ## Limites de cette version
 
 - L’inscription demande une confirmation Twilio par SMS ou WhatsApp lorsque le
   Worker Cloudflare est déployé et que son URL est configurée dans `index.html`.
   Sans ces étapes, aucun code n’est envoyé.
-- La confirmation établit seulement que la personne peut recevoir le code au
-  numéro fourni. Cette version ne crée pas de compte permanent : le profil est
-  conservé temporairement dans la session du navigateur, et la connexion reste
-  simulée. Ne pas utiliser cette démo comme authentification pour des paiements.
+- L’inscription comme la connexion demandent un code SMS/WhatsApp et établissent
+  seulement que la personne peut recevoir le code au numéro fourni. Cette
+  version ne crée pas de compte permanent : le profil est conservé temporairement
+  dans la session du navigateur. Ne pas utiliser cette vérification comme
+  authentification pour des paiements.
 - Les demandes sont uniquement affichées dans le navigateur; elles ne sont pas
   envoyées à un serveur ni enregistrées.
 - Wave et Orange Money ne sont pas connectés; aucun transfert ou paiement réel
